@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plant Disease Detection</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .form-container {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    #image-preview {
+      width: 300px;
+      height: 300px;
+      margin: 0 auto;
+      background-color: #f2f2f2;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    #result {
+      text-align: center;
+      margin-top: 30px;
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Plant Disease Detection</h1>
+
+    <div class="form-container">
+      <form id="upload-form" method="POST" enctype="multipart/form-data">
+        <input type="file" name="image" id="image-input" accept="image/*" required>
+        <br><br>
+        <input type="submit" value="Upload and Predict">
+      </form>
+    </div>
+
+    <div id="result">
+      <h2>Result:</h2>
+      <p id="predicted-class"></p>
+    </div>
+
+    <div id="image-preview"></div>
+
+  </div>
+
+  <script>
+    const imageInput = document.getElementById('image-input');
+    const imagePreview = document.getElementById('image-preview');
+    const resultSection = document.getElementById('result');
+    const predictedClass = document.getElementById('predicted-class');
+    const uploadForm = document.getElementById('upload-form');
+
+    // Preview the uploaded image
+    imageInput.addEventListener('change', function (e) {
+      const file = e.target.files[0];
+      const reader = new FileReader();
+
+      reader.onload = function (event) {
+        imagePreview.style.backgroundImage = `url(${event.target.result})`;
+      };
+
+      reader.readAsDataURL(file);
+    });
+
+    // Show the prediction result after form submission
+    uploadForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const formData = new FormData(this);
+
+      fetch('/predict', {
+        method: 'POST',
+        body: formData
+      })
+        .then(response => response.text())
+        .then(data => {
+          predictedClass.textContent = data;
+          resultSection.style.display = 'block';
+        })
+        .catch(error => console.error(error));
+    });
+  </script>
+</body>
+
+</html>

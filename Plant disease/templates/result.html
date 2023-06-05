@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plant Disease Detection - Result</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .result-container {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    #result {
+      text-align: center;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Plant Disease Detection - Result</h1>
+
+    <div class="result-container">
+      <h2>Result:</h2>
+      <p id="predicted-class">{{ result }}</p>
+    </div>
+
+    <div id="result">
+      <a href="/">Go Back</a>
+    </div>
+
+  </div>
+</body>
+
+</html>
